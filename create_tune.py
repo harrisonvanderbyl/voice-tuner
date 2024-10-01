@@ -1,10 +1,11 @@
+from contextlib import nullcontext
 import math
 import os
 from dataclasses import dataclass
 from functools import partial, wraps
 from math import ceil, prod
 import random
-from typing import Callable
+from typing import Callable, List, Tuple
 
 import huggingface_hub
 import inquirer
@@ -13,8 +14,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchaudio
-from einops import rearrange
-from torch import Tensor, autocast, nn
+from einops import rearrange, reduce
+from einx import get_at
+from torch import Tensor, autocast, int32, nn
 from torch.nn.utils.parametrizations import weight_norm
 from torch.nn.utils.parametrize import remove_parametrizations
 from torch.utils.checkpoint import checkpoint
